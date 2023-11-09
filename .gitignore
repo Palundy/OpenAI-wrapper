@@ -1,0 +1,5 @@
+# Ingore index file
+index.php
+
+# Ingore .env file
+*.env
