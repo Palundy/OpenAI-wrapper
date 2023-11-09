@@ -26,10 +26,12 @@ class cURL {
         curl_setopt($cHandle, CURLOPT_HTTPHEADER, $Headers);
 
         $returnData = curl_exec($cHandle);
-        $returnData = json_decode($returnData, true);
+        if (in_array("Content-Type: application/json", $Headers)) {
+            $returnData = json_decode($returnData, true);
+        }
         curl_close($cHandle);
         
-        return (isset($returnData["error"])) ? false : $returnData;
+        return $returnData;
     }
 
 
@@ -39,9 +41,11 @@ class cURL {
      * @param string $URL
      * The URL to fetch.
      * 
-     * @param $Postfields
+     * @param $Postfields [optional]
      * The data that gets posted.
-     * Automatically converts to JSON.
+     * Automatically converts to JSON
+     * if the header `Content-Type: application/json`
+     * has been set.
      * 
      * @param array $Headers [optional]
      * The array with headers.
@@ -51,22 +55,23 @@ class cURL {
      * An array with the response, or `false` if
      * an error occurs.
      */
-    public static function POST($URL, $Postfields, $Headers = []) {
+    public static function POST($URL, $Postfields = [], $Headers = []) {
         
         $cHandle = curl_init();
         $Headers[] = OpenAI::AuthorizationHeader();
-        $Headers[] = "Content-Type: application/json";
 
         curl_setopt($cHandle, CURLOPT_URL, $URL);
         curl_setopt($cHandle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cHandle, CURLOPT_HTTPHEADER, $Headers);
         curl_setopt($cHandle, CURLOPT_POST, true);
-        curl_setopt($cHandle, CURLOPT_POSTFIELDS, json_encode($Postfields));
+        curl_setopt($cHandle, CURLOPT_POSTFIELDS, (in_array("Content-Type: application/json", $Headers) ? json_encode($Postfields) : http_build_query($Postfields)));
     
         $returnData = curl_exec($cHandle);
-        $returnData = json_decode($returnData, true);
+        if (in_array("Content-Type: application/json", $Headers)) {
+            $returnData = json_decode($returnData, true);
+        }
         curl_close($cHandle);
 
-        return (isset($returnData["error"])) ? false : $returnData;
+        return $returnData;
     }
 }

@@ -304,11 +304,12 @@ class ChatCompletions {
                 "model" => $this->Model,
                 "messages" => $this->MessageThread,
                 "max_tokens" => $this->MaxTokens
-            ]
+            ],
+            ["Content-Type: application/json"]
         );
 
         // Check whether the result is `false`
-        if ($returnData !== false) {
+        if (isset($returnData["error"]) === false) {
             $lastChoice = array_pop($returnData["choices"]);
             $this->MessageThread[] = $lastChoice["message"];
             $this->TokenUsage = $returnData["usage"];

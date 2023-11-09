@@ -4,14 +4,7 @@ This repository provides a PHP wrapper for OpenAI GPT-3 and GPT-4 APIs. The clas
 
 ## Usage
 
-To use this wrapper, first set your API key within the `OpenAI` class:
-
-
-```php
-private static $API_KEY = "YOUR_API_KEY";
-```
-
-Then include the `OpenAI.php` file:
+To use this wrapper, first import the necessary files:
 
 ```php
 include_once("OpenAI.php");
@@ -43,12 +36,6 @@ Finally, you can start the conversation and display a crude version of the conve
 // Start the conversation and display it
 $Chat->startConversation();
 $Chat->showConversation();
-```
-
-..or you can store or view the latest response:
-```php
-$Chat->showResponse(); // Show the latest response
-$Response = $Chat->getResponse(); // Retrieve the latest response
 ```
 
 The `storeConversation(true)` method allows you to store your conversations. To later retrieve the same conversation:
