@@ -4,7 +4,14 @@ This repository provides a PHP wrapper for OpenAI GPT-3 and GPT-4 APIs. The clas
 
 ## Usage
 
-To use this wrapper, first import the necessary files:
+To use this wrapper, first set your API key within the `OpenAI` class:
+
+
+```php
+private $API_KEY = "YOUR_API_KEY";
+```
+
+Then include the `OpenAI.php` file:
 
 ```php
 include_once("OpenAI.php");
