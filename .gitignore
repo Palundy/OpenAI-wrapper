@@ -3,3 +3,6 @@ index.php
 
 # Ingore .env file
 *.env
+
+# Ignore /objects directory
+/objects

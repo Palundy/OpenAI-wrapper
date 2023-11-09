@@ -88,6 +88,12 @@ class ChatCompletions {
      * @return ChatCompletions
      */
     public function setModel($Model) {
+        // Check whether images have been added
+        //  in that case only the model `gpt-4-vision-preview`
+        //  can be used.
+        if ($this->hasImages) {
+            return $this;
+        }
         $this->Model = $Model;
         return $this;
     }
