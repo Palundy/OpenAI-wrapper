@@ -212,6 +212,29 @@ class ChatCompletions {
 
 
     /**
+     * Show the last response.
+     * 
+     * @return ChatCompletions
+     */
+    public function showResponse() {
+        $lastMessage = $this->MessageThread[array_key_last($this->MessageThread)];
+        echo $lastMessage["content"];
+        return $this;
+    }
+
+
+    /**
+     * Returns the last response.
+     * 
+     * @return string
+     */
+    public function getResponse() {
+        $lastMessage = $this->MessageThread[array_key_last($this->MessageThread)];
+        return $lastMessage["content"];
+    }
+
+
+    /**
      * Returns the amount of `prompt_tokens`.
      * 
      * @return int

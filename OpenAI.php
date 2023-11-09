@@ -2,7 +2,7 @@
 class OpenAI {
 
     // API essential information
-    private $API_KEY = "YOUR_API_KEY";
+    private static $API_KEY = "YOUR_API_KEY";
     public const _API_URL = "https://api.openai.com/v1";
 
     // Endpoints
