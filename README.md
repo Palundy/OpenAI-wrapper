@@ -145,7 +145,7 @@ $Chat = OpenAI::ChatCompletions();
 $Chat->setSystemMessage("You are a helpful assistant")
      ->addUserMessage("What is displayed on the following image?")
      ->addImage("https://en.wikipedia.org/wiki/File:The_Matrix_Poster.jpg")
-     ->addUserMessage("And can you give me a summary of the Matrix triology using the following URL: https://en.wikipedia.org/wiki/The_Matrix) // Use the cURL::GET() function to retrieve the content of a page
+     ->addUserMessage("And can you give me a summary of the Matrix triology using the following URL: https://en.wikipedia.org/wiki/The_Matrix") // Use the integrated function calling to get the contents of a page.
      ->startThread();
 
 // Display the last response
