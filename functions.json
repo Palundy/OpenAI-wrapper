@@ -1,0 +1,20 @@
+[
+    {
+        "name": "curl_get",
+        "description": "Sends a GET request to retrieve a certain webpage. This can be used to browse the web/internet.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "URL": {
+                    "type": "string",
+                    "description": "The URL to fetch."
+                },
+                "Headers": {
+                    "type": "string",
+                    "description": "The headers seperated by a newline."
+                }
+            },
+            "required": ["URL"]
+        }
+    }
+]
