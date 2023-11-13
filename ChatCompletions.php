@@ -440,6 +440,24 @@ class ChatCompletions {
     }
 
 
+    /**
+     * Private function used to call functions.
+     * This function gets called from:
+     * `ChatCompletions->startThread()` and
+     * `ChatCompletions->continueThread()`.
+     * 
+     * @param string $functionName
+     * The given function to call.
+     * 
+     * @param array $Arguments
+     * An array with the arguments.
+     * 
+     * @param string $ToolCallId
+     * The given `tool_call_id`.
+     * 
+     * 
+     * @return void
+     */
     private function callFunction($functionName, $Arguments, $ToolCallId) {
 
         // cURL::GET() function
@@ -447,14 +465,26 @@ class ChatCompletions {
             $returnValue = strip_tags(cURL::GET($Arguments["URL"], isset($Arguments["Headers"]) ? explode("\n", $Arguments["Headers"]) : []));
         }
 
-        // Add the function message
-        $this->addToolsMessage($returnValue, $ToolCallId);
-
-        // Continue the thread
-        $this->continueThread();
+        // Add the function message and continue the thread
+        $this->addToolsMessage($returnValue, $ToolCallId)->continueThread();
     }
 
 
+    /**
+     * Private function to add a `tool` message.
+     * This function only gets called from:
+     * `ChatCompletions->callFunction()`.
+     * 
+     * @param string $ToolsMessage
+     * The `$returnValue` retrieved from
+     * `ChatCompletions->callFunction()`.
+     * 
+     * @param string $ToolCallId
+     * The `tool_call_id`.
+     * 
+     * 
+     * @return ChatCompletions
+     */
     private function addToolsMessage($ToolsMessage, $ToolCallId) {
         $this->MessageThread[] = [
             "role" => "tool",
