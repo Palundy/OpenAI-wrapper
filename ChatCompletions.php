@@ -329,21 +329,28 @@ class ChatCompletions {
             "content" => $this->SystemMessage
         ]);
 
+
+        // Fill the request array
+        $requestArray = [
+            "model" => $this->Model,
+            "messages" => $this->MessageThread,
+            "max_tokens" => $this->MaxTokens
+        ];
+
+        // If images haven't been added
+        // to the thread, functions can be used
+        if ($this->hasImages === false) {
+            $requestArray["tools"] = [[
+                "type" => "function",
+                "function" => $this->initializedFunctions[0]
+            ]];
+            $requestArray["tool_choice"] = "auto";
+        }
+
         // Send the request
         $returnData = cURL::POST(
             $this->URL,
-            [
-                "model" => $this->Model,
-                "messages" => $this->MessageThread,
-                "max_tokens" => $this->MaxTokens,
-                "tools" => [
-                    [
-                        "type" => "function",
-                        "function" => $this->initializedFunctions[0]
-                    ]
-                ],
-                "tool_choice" => "auto"
-            ],
+            $requestArray,
             ["Content-Type: application/json"]
         );
 
@@ -392,21 +399,28 @@ class ChatCompletions {
             return $this->startThread();
         }
 
+
+        // Fill the request array
+        $requestArray = [
+            "model" => $this->Model,
+            "messages" => $this->MessageThread,
+            "max_tokens" => $this->MaxTokens
+        ];
+
+        // If images haven't been added
+        // to the thread, functions can be used
+        if ($this->hasImages === false) {
+            $requestArray["tools"] = [[
+                "type" => "function",
+                "function" => $this->initializedFunctions[0]
+            ]];
+            $requestArray["tool_choice"] = "auto";
+        }
+        
         // Send the request
         $returnData = cURL::POST(
             $this->URL,
-            [
-                "model" => $this->Model,
-                "messages" => $this->MessageThread,
-                "max_tokens" => $this->MaxTokens,
-                "tools" => [
-                    [
-                        "type" => "function",
-                        "function" => $this->initializedFunctions[0]
-                    ] 
-                ],
-                "tool_choice" => "auto"
-            ],
+            $requestArray,
             ["Content-Type: application/json"]
         );
 
