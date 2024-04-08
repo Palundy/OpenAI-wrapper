@@ -48,7 +48,7 @@ $ConversationId = $Chat->getConversationId();
 Then you can use the saved `ConversationId` to retrieve the conversation:
 
 ```php
-$Chat = OpenAI::ChatCompletions($Chat->getConversationId());
+$Chat = OpenAI::ChatCompletions($ConversationId);
 ```
 
 This wrapper also allows for the addition of images into the conversation. To add an image:
